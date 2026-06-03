@@ -1,0 +1,1401 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Clayton Dias Santos — Cientista de Dados Sênior</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet"/>
+<style>
+:root {
+  --bg:        #080c14;
+  --bg2:       #0c1220;
+  --bg3:       #101828;
+  --border:    rgba(255,255,255,0.07);
+  --border2:   rgba(55,138,221,0.25);
+  --blue:      #378ADD;
+  --blue-dim:  #1a4a7a;
+  --green:     #1D9E75;
+  --purple:    #7C5CBF;
+  --amber:     #D97706;
+  --red:       #D85A30;
+  --text:      #e8edf5;
+  --text2:     #8899b0;
+  --text3:     #3d5070;
+  --mono:      'DM Mono', monospace;
+  --sans:      'DM Sans', sans-serif;
+  --display:   'Syne', sans-serif;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--sans);
+  font-size: 16px;
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+/* ─── NOISE OVERLAY ─── */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.4;
+}
+
+/* ─── GRID LINES ─── */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(55,138,221,0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(55,138,221,0.03) 1px, transparent 1px);
+  background-size: 60px 60px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ─── CURSOR GLOW ─── */
+.cursor-glow {
+  position: fixed;
+  width: 500px;
+  height: 500px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(55,138,221,0.06) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: 1;
+  transform: translate(-50%, -50%);
+  transition: left 0.3s ease, top 0.3s ease;
+}
+
+/* ─── NAV ─── */
+nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  padding: 0 2rem;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: rgba(8,12,20,0.85);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--border);
+}
+
+.nav-logo {
+  font-family: var(--display);
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text);
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.nav-logo span {
+  display: inline-block;
+  width: 28px;
+  height: 28px;
+  background: linear-gradient(135deg, var(--blue), var(--purple));
+  border-radius: 6px;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.nav-links {
+  display: flex;
+  gap: 2rem;
+  list-style: none;
+}
+
+.nav-links a {
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--text2);
+  text-decoration: none;
+  letter-spacing: 0.05em;
+  transition: color 0.2s;
+}
+
+.nav-links a:hover { color: var(--blue); }
+
+.nav-cta {
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--blue);
+  border: 1px solid var(--border2);
+  padding: 6px 16px;
+  border-radius: 6px;
+  text-decoration: none;
+  transition: all 0.2s;
+}
+
+.nav-cta:hover {
+  background: rgba(55,138,221,0.1);
+}
+
+/* ─── SECTIONS ─── */
+section {
+  position: relative;
+  z-index: 2;
+}
+
+/* ─── HERO ─── */
+#hero {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  padding: 100px 2rem 80px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.hero-inner {
+  display: grid;
+  grid-template-columns: 1fr 420px;
+  gap: 4rem;
+  align-items: center;
+  width: 100%;
+}
+
+.hero-tag {
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--green);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.hero-tag::before {
+  content: '';
+  display: block;
+  width: 32px;
+  height: 1px;
+  background: var(--green);
+}
+
+h1 {
+  font-family: var(--display);
+  font-size: clamp(40px, 6vw, 72px);
+  font-weight: 800;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  margin-bottom: 1.5rem;
+}
+
+h1 .accent {
+  background: linear-gradient(135deg, var(--blue) 0%, var(--purple) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.hero-desc {
+  font-size: 17px;
+  color: var(--text2);
+  line-height: 1.75;
+  margin-bottom: 2.5rem;
+  max-width: 520px;
+}
+
+.hero-actions {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, var(--blue), var(--purple));
+  color: white;
+  padding: 12px 28px;
+  border-radius: 8px;
+  font-family: var(--mono);
+  font-size: 13px;
+  font-weight: 500;
+  text-decoration: none;
+  transition: all 0.2s;
+  box-shadow: 0 4px 20px rgba(55,138,221,0.25);
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 32px rgba(55,138,221,0.35);
+}
+
+.btn-ghost {
+  color: var(--text2);
+  padding: 12px 28px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  font-family: var(--mono);
+  font-size: 13px;
+  text-decoration: none;
+  transition: all 0.2s;
+}
+
+.btn-ghost:hover {
+  border-color: var(--border2);
+  color: var(--text);
+}
+
+/* Hero card */
+.hero-card {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 2rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-card::before {
+  content: '';
+  position: absolute;
+  top: -60px;
+  right: -60px;
+  width: 200px;
+  height: 200px;
+  background: radial-gradient(circle, rgba(55,138,221,0.12), transparent 70%);
+}
+
+.hc-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.hc-avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, var(--blue), var(--purple));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+}
+
+.hc-name {
+  font-family: var(--display);
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.hc-role {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--green);
+  margin-top: 2px;
+}
+
+.stat-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 1.5rem;
+}
+
+.stat-item {
+  background: var(--bg3);
+  border-radius: 10px;
+  padding: 12px 14px;
+  border: 1px solid var(--border);
+}
+
+.stat-val {
+  font-family: var(--display);
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--text);
+  line-height: 1;
+  margin-bottom: 4px;
+}
+
+.stat-val.blue  { color: var(--blue); }
+.stat-val.green { color: var(--green); }
+.stat-val.purple { color: var(--purple); }
+.stat-val.amber  { color: var(--amber); }
+
+.stat-label {
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--text3);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.skill-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.pill {
+  font-family: var(--mono);
+  font-size: 11px;
+  padding: 4px 10px;
+  border-radius: 20px;
+  border: 1px solid var(--border);
+  color: var(--text2);
+}
+
+.pill.blue   { border-color: rgba(55,138,221,0.4); color: var(--blue); background: rgba(55,138,221,0.08); }
+.pill.green  { border-color: rgba(29,158,117,0.4); color: var(--green); background: rgba(29,158,117,0.08); }
+.pill.purple { border-color: rgba(124,92,191,0.4); color: var(--purple); background: rgba(124,92,191,0.08); }
+.pill.amber  { border-color: rgba(217,119,6,0.4); color: var(--amber); background: rgba(217,119,6,0.08); }
+.pill.red    { border-color: rgba(216,90,48,0.4); color: var(--red); background: rgba(216,90,48,0.08); }
+
+/* ─── SECTION HEADER ─── */
+.section-wrap {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 80px 2rem;
+}
+
+.sec-label {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--blue);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.sec-label::before {
+  content: '';
+  display: block;
+  width: 24px;
+  height: 1px;
+  background: var(--blue);
+}
+
+h2 {
+  font-family: var(--display);
+  font-size: clamp(28px, 4vw, 42px);
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  margin-bottom: 1rem;
+}
+
+.sec-desc {
+  color: var(--text2);
+  font-size: 16px;
+  max-width: 560px;
+  line-height: 1.75;
+  margin-bottom: 3rem;
+}
+
+/* ─── SKILLS ─── */
+#skills { background: var(--bg2); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+.skill-card {
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 1.5rem;
+  transition: all 0.3s;
+  position: relative;
+  overflow: hidden;
+}
+
+.skill-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 0.3s;
+  border-radius: 16px;
+}
+
+.skill-card:hover { border-color: var(--border2); transform: translateY(-4px); }
+.skill-card:hover::before { opacity: 1; }
+
+.skill-card.blue::before  { background: linear-gradient(135deg, rgba(55,138,221,0.06), transparent); }
+.skill-card.green::before { background: linear-gradient(135deg, rgba(29,158,117,0.06), transparent); }
+.skill-card.purple::before{ background: linear-gradient(135deg, rgba(124,92,191,0.06), transparent); }
+.skill-card.amber::before { background: linear-gradient(135deg, rgba(217,119,6,0.06), transparent); }
+.skill-card.red::before   { background: linear-gradient(135deg, rgba(216,90,48,0.06), transparent); }
+
+.sk-icon {
+  font-size: 28px;
+  margin-bottom: 14px;
+}
+
+.sk-title {
+  font-family: var(--display);
+  font-size: 15px;
+  font-weight: 700;
+  margin-bottom: 8px;
+  color: var(--text);
+}
+
+.sk-desc {
+  font-size: 13px;
+  color: var(--text2);
+  line-height: 1.65;
+  margin-bottom: 14px;
+}
+
+.sk-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+
+.sk-tag {
+  font-family: var(--mono);
+  font-size: 10px;
+  padding: 3px 8px;
+  border-radius: 4px;
+  background: rgba(255,255,255,0.05);
+  color: var(--text3);
+  border: 1px solid var(--border);
+}
+
+/* ─── PROJECTS ─── */
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+
+.proj-card {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 2rem;
+  transition: all 0.3s;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  text-decoration: none;
+  display: block;
+  color: inherit;
+}
+
+.proj-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  background: linear-gradient(135deg, rgba(55,138,221,0.05), rgba(124,92,191,0.05));
+  transition: opacity 0.3s;
+}
+
+.proj-card:hover { border-color: var(--border2); transform: translateY(-6px); box-shadow: 0 20px 60px rgba(0,0,0,0.4); }
+.proj-card:hover::after { opacity: 1; }
+
+.proj-card.featured {
+  grid-column: span 2;
+  display: grid;
+  grid-template-columns: 1fr 300px;
+  gap: 2rem;
+  align-items: start;
+}
+
+.proj-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+
+.proj-badge {
+  font-family: var(--mono);
+  font-size: 10px;
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-weight: 500;
+}
+
+.proj-badge.live   { background: rgba(29,158,117,0.15); color: var(--green); border: 1px solid rgba(29,158,117,0.3); }
+.proj-badge.wip    { background: rgba(217,119,6,0.15); color: var(--amber); border: 1px solid rgba(217,119,6,0.3); }
+.proj-badge.concept{ background: rgba(124,92,191,0.15); color: var(--purple); border: 1px solid rgba(124,92,191,0.3); }
+
+.proj-icon { font-size: 32px; }
+
+.proj-title {
+  font-family: var(--display);
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 8px;
+  color: var(--text);
+}
+
+.proj-desc {
+  font-size: 14px;
+  color: var(--text2);
+  line-height: 1.7;
+  margin-bottom: 1.5rem;
+}
+
+.proj-stats {
+  display: flex;
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.ps-item {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.ps-val {
+  font-family: var(--display);
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--blue);
+}
+
+.ps-label {
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--text3);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.proj-stack {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 1.5rem;
+}
+
+.proj-links {
+  display: flex;
+  gap: 10px;
+}
+
+.proj-link {
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--blue);
+  text-decoration: none;
+  padding: 6px 14px;
+  border: 1px solid var(--border2);
+  border-radius: 6px;
+  transition: all 0.2s;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.proj-link:hover { background: rgba(55,138,221,0.1); }
+
+/* featured right side */
+.proj-visual {
+  background: var(--bg3);
+  border-radius: 14px;
+  padding: 1.5rem;
+  border: 1px solid var(--border);
+}
+
+.pv-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 0;
+  border-bottom: 1px solid var(--border);
+  font-family: var(--mono);
+  font-size: 12px;
+}
+
+.pv-row:last-child { border-bottom: none; }
+.pv-label { color: var(--text3); }
+.pv-val { color: var(--text); font-weight: 500; }
+.pv-val.green { color: var(--green); }
+.pv-val.blue  { color: var(--blue); }
+
+.pv-bar-wrap { margin-top: 1rem; }
+.pv-bar-label { display: flex; justify-content: space-between; font-family: var(--mono); font-size: 10px; color: var(--text3); margin-bottom: 6px; }
+.pv-bar { height: 4px; background: var(--bg); border-radius: 2px; overflow: hidden; margin-bottom: 8px; }
+.pv-bar-fill { height: 100%; border-radius: 2px; }
+
+/* ─── EXPERIENCE ─── */
+#experience { background: var(--bg2); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+
+.timeline {
+  position: relative;
+  padding-left: 2rem;
+}
+
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 8px;
+  bottom: 0;
+  width: 1px;
+  background: linear-gradient(to bottom, var(--blue), var(--purple), transparent);
+}
+
+.tl-item {
+  position: relative;
+  margin-bottom: 2.5rem;
+  padding-left: 1.5rem;
+}
+
+.tl-item::before {
+  content: '';
+  position: absolute;
+  left: -2rem;
+  top: 8px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--blue);
+  border: 2px solid var(--bg2);
+  box-shadow: 0 0 0 3px rgba(55,138,221,0.2);
+}
+
+.tl-period {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--blue);
+  margin-bottom: 6px;
+  letter-spacing: 0.05em;
+}
+
+.tl-company {
+  font-family: var(--display);
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 2px;
+}
+
+.tl-role {
+  font-size: 13px;
+  color: var(--text2);
+  margin-bottom: 10px;
+}
+
+.tl-bullets {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.tl-bullets li {
+  font-size: 13px;
+  color: var(--text2);
+  padding-left: 16px;
+  position: relative;
+  line-height: 1.6;
+}
+
+.tl-bullets li::before {
+  content: '▸';
+  position: absolute;
+  left: 0;
+  color: var(--blue);
+  font-size: 10px;
+  top: 3px;
+}
+
+/* ─── EDUCATION / CERTS ─── */
+.edu-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.edu-card {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 1.25rem 1.5rem;
+  transition: border-color 0.2s;
+}
+
+.edu-card:hover { border-color: var(--border2); }
+
+.edu-period {
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--text3);
+  margin-bottom: 6px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.edu-title {
+  font-family: var(--display);
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 4px;
+  line-height: 1.4;
+}
+
+.edu-inst {
+  font-size: 12px;
+  color: var(--text2);
+}
+
+/* ─── CONTACT ─── */
+#contact {
+  background: linear-gradient(135deg, var(--bg2), var(--bg));
+  border-top: 1px solid var(--border);
+}
+
+.contact-inner {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: center;
+}
+
+.contact-links {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 2rem;
+}
+
+.contact-link {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 18px;
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  text-decoration: none;
+  color: var(--text);
+  transition: all 0.2s;
+}
+
+.contact-link:hover {
+  border-color: var(--border2);
+  background: rgba(55,138,221,0.06);
+  transform: translateX(4px);
+}
+
+.cl-icon {
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  flex-shrink: 0;
+}
+
+.cl-icon.blue   { background: rgba(55,138,221,0.15); }
+.cl-icon.green  { background: rgba(29,158,117,0.15); }
+.cl-icon.purple { background: rgba(124,92,191,0.15); }
+
+.cl-label {
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--text3);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 2px;
+}
+
+.cl-val {
+  font-size: 14px;
+  color: var(--text);
+  font-weight: 500;
+}
+
+.contact-quote {
+  padding: 2rem;
+  background: var(--bg3);
+  border-radius: 20px;
+  border: 1px solid var(--border);
+  position: relative;
+}
+
+.contact-quote::before {
+  content: '"';
+  font-family: var(--display);
+  font-size: 80px;
+  color: var(--blue);
+  opacity: 0.3;
+  position: absolute;
+  top: -10px;
+  left: 20px;
+  line-height: 1;
+}
+
+.cq-text {
+  font-size: 17px;
+  color: var(--text2);
+  line-height: 1.8;
+  padding-top: 2rem;
+  font-style: italic;
+}
+
+.cq-sig {
+  margin-top: 1.5rem;
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--blue);
+}
+
+/* ─── FOOTER ─── */
+footer {
+  position: relative;
+  z-index: 2;
+  padding: 2rem;
+  border-top: 1px solid var(--border);
+  text-align: center;
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--text3);
+}
+
+/* ─── ANIMATIONS ─── */
+.fade-up {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.fade-up.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.fade-up-d1 { transition-delay: 0.1s; }
+.fade-up-d2 { transition-delay: 0.2s; }
+.fade-up-d3 { transition-delay: 0.3s; }
+.fade-up-d4 { transition-delay: 0.4s; }
+
+/* ─── SCROLLBAR ─── */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--blue-dim); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--blue); }
+</style>
+</head>
+<body>
+
+<div class="cursor-glow" id="glow"></div>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="#">
+    <span>C</span>
+    Clayton Dias Santos
+  </a>
+  <ul class="nav-links">
+    <li><a href="#skills">skills</a></li>
+    <li><a href="#projects">projetos</a></li>
+    <li><a href="#experience">experiência</a></li>
+    <li><a href="#education">formação</a></li>
+    <li><a href="#contact">contato</a></li>
+  </ul>
+  <a class="nav-cta" href="mailto:clayton.santosti@gmail.com">→ contato</a>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-inner">
+    <div>
+      <div class="hero-tag fade-up">disponível para projetos</div>
+      <h1 class="fade-up fade-up-d1">
+        Cientista de<br/>
+        Dados <span class="accent">Sênior</span>
+      </h1>
+      <p class="hero-desc fade-up fade-up-d2">
+        15+ anos em TI. Especialista em Machine Learning, IA Generativa, 
+        Agentes de IA e LLMs. Do dado bruto ao modelo em produção — 
+        com foco em impacto real nos negócios.
+      </p>
+      <div class="hero-actions fade-up fade-up-d3">
+        <a class="btn-primary" href="#projects">Ver projetos</a>
+        <a class="btn-ghost" href="#contact">Entre em contato</a>
+      </div>
+    </div>
+
+    <div class="hero-card fade-up fade-up-d2">
+      <div class="hc-header">
+        <div class="hc-avatar">🧠</div>
+        <div>
+          <div class="hc-name">Clayton Dias Santos</div>
+          <div class="hc-role">● Cientista de Dados Sênior</div>
+        </div>
+      </div>
+
+      <div class="stat-grid">
+        <div class="stat-item">
+          <div class="stat-val blue">15+</div>
+          <div class="stat-label">Anos em TI</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-val green">5+</div>
+          <div class="stat-label">Anos em Data Science</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-val purple">ML</div>
+          <div class="stat-label">Machine Learning</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-val amber">Agentes</div>
+          <div class="stat-label">ReAct · RAG · LLMs</div>
+        </div>
+      </div>
+
+      <div class="skill-pills">
+        <span class="pill purple">LangChain</span>
+        <span class="pill blue">OpenAI API</span>
+        <span class="pill green">Scikit-learn</span>
+        <span class="pill purple">PyTorch</span>
+        <span class="pill amber">XGBoost</span>
+        <span class="pill green">TensorFlow</span>
+        <span class="pill blue">HuggingFace</span>
+        <span class="pill red">NLP</span>
+        <span class="pill purple">RAG</span>
+        <span class="pill blue">MLflow</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="section-wrap">
+    <div class="sec-label fade-up">competências</div>
+    <h2 class="fade-up fade-up-d1">Stack técnico completo</h2>
+    <p class="sec-desc fade-up fade-up-d2">Do dado bruto ao modelo deployado em produção — com domínio em toda a cadeia de valor de Data Science.</p>
+
+    <div class="skills-grid">
+      <div class="skill-card blue fade-up">
+        <div class="sk-icon">🤖</div>
+        <div class="sk-title">Machine Learning & Deep Learning</div>
+        <div class="sk-desc">Modelagem preditiva end-to-end: classificação, regressão, clustering, séries temporais e NLP.</div>
+        <div class="sk-tags">
+          <span class="sk-tag">Scikit-learn</span><span class="sk-tag">TensorFlow</span>
+          <span class="sk-tag">PyTorch</span><span class="sk-tag">XGBoost</span>
+          <span class="sk-tag">Random Forest</span><span class="sk-tag">NLP</span>
+        </div>
+      </div>
+      <div class="skill-card purple fade-up fade-up-d1">
+        <div class="sk-icon">🧠</div>
+        <div class="sk-title">IA Generativa & LLMs</div>
+        <div class="sk-desc">Desenvolvimento com os principais modelos de linguagem — prompt engineering, fine-tuning e avaliação.</div>
+        <div class="sk-tags">
+          <span class="sk-tag">Claude</span><span class="sk-tag">OpenAI</span>
+          <span class="sk-tag">Llama</span><span class="sk-tag">Gemini</span>
+          <span class="sk-tag">Prompt Eng.</span><span class="sk-tag">RAG</span>
+        </div>
+      </div>
+      <div class="skill-card green fade-up fade-up-d2">
+        <div class="sk-icon">⚡</div>
+        <div class="sk-title">Agentes de IA Autônomos</div>
+        <div class="sk-desc">Construção de agentes capazes de raciocinar, planejar e executar tarefas complexas com mínima intervenção.</div>
+        <div class="sk-tags">
+          <span class="sk-tag">ReAct</span><span class="sk-tag">Multi-agentes</span>
+          <span class="sk-tag">LangChain</span><span class="sk-tag">n8n</span>
+          <span class="sk-tag">Automação</span>
+        </div>
+      </div>
+      <div class="skill-card amber fade-up">
+        <div class="sk-icon">☁️</div>
+        <div class="sk-title">Cloud & Dados</div>
+        <div class="sk-desc">Pipelines escaláveis em cloud com governança, performance e custo otimizados.</div>
+        <div class="sk-tags">
+          <span class="sk-tag">AWS</span><span class="sk-tag">Azure</span>
+          <span class="sk-tag">Databricks</span><span class="sk-tag">Redshift</span>
+          <span class="sk-tag">Glue</span><span class="sk-tag">OCI</span>
+        </div>
+      </div>
+      <div class="skill-card red fade-up fade-up-d1">
+        <div class="sk-icon">📊</div>
+        <div class="sk-title">BI & Visualização</div>
+        <div class="sk-desc">Dashboards estratégicos que transformam dados em decisões — do operacional ao C-level.</div>
+        <div class="sk-tags">
+          <span class="sk-tag">Power BI</span><span class="sk-tag">OAC</span>
+          <span class="sk-tag">Tableau</span><span class="sk-tag">Looker</span>
+          <span class="sk-tag">Streamlit</span>
+        </div>
+      </div>
+      <div class="skill-card blue fade-up fade-up-d2">
+        <div class="sk-icon">🐍</div>
+        <div class="sk-title">Python & SQL</div>
+        <div class="sk-desc">Linguagens principais para análise, modelagem, automação de pipelines e manipulação de grandes volumes.</div>
+        <div class="sk-tags">
+          <span class="sk-tag">Pandas</span><span class="sk-tag">NumPy</span>
+          <span class="sk-tag">SQL</span><span class="sk-tag">PL/SQL</span>
+          <span class="sk-tag">Oracle</span><span class="sk-tag">Matplotlib</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="section-wrap">
+    <div class="sec-label fade-up">portfólio</div>
+    <h2 class="fade-up fade-up-d1">Projetos em destaque</h2>
+    <p class="sec-desc fade-up fade-up-d2">Projetos reais e aplicados — da exploração dos dados ao deploy em produção.</p>
+
+    <div class="projects-grid">
+
+      <!-- FEATURED: ObesityPredict -->
+      <div class="proj-card featured fade-up">
+        <div>
+          <div class="proj-top">
+            <div class="proj-icon">🩺</div>
+            <span class="proj-badge live">● Live</span>
+          </div>
+          <div class="proj-title">ObesityPredict — Sistema Preditivo de Obesidade</div>
+          <div class="proj-desc">
+            Pipeline completa de Machine Learning para classificação de nível de obesidade em 7 categorias. 
+            Inclui feature engineering avançado, treinamento de Random Forest e deploy de 
+            aplicação clínica interativa via Streamlit — da exploração dos dados ao produto final.
+          </div>
+          <div class="proj-stats">
+            <div class="ps-item"><span class="ps-val">98,35%</span><span class="ps-label">Acurácia</span></div>
+            <div class="ps-item"><span class="ps-val">2.111</span><span class="ps-label">Pacientes</span></div>
+            <div class="ps-item"><span class="ps-val">7</span><span class="ps-label">Classes</span></div>
+            <div class="ps-item"><span class="ps-val">17</span><span class="ps-label">Features</span></div>
+          </div>
+          <div class="proj-stack">
+            <span class="pill blue">Python</span>
+            <span class="pill green">Scikit-learn</span>
+            <span class="pill purple">Random Forest</span>
+            <span class="pill amber">Streamlit</span>
+            <span class="pill blue">Pandas</span>
+            <span class="pill green">Matplotlib</span>
+          </div>
+          <div class="proj-links">
+            <a class="proj-link" href="https://github.com/claytondatascienceIA/portfolio/tree/main/obesitypredict" target="_blank">⌥ GitHub</a>
+            <a class="proj-link" href="SEU_STREAMLIT_OBESITY" target="_blank">↗ App ao vivo</a>
+          </div>
+        </div>
+        <div class="proj-visual">
+          <div class="pv-row"><span class="pv-label">Modelo</span><span class="pv-val">Random Forest</span></div>
+          <div class="pv-row"><span class="pv-label">Acurácia test</span><span class="pv-val green">98,35%</span></div>
+          <div class="pv-row"><span class="pv-label">CV 5-fold</span><span class="pv-val green">97,8% ±0,3%</span></div>
+          <div class="pv-row"><span class="pv-label">Feature top</span><span class="pv-val blue">IMC (42,97%)</span></div>
+          <div class="pv-row"><span class="pv-label">Deploy</span><span class="pv-val">Streamlit Cloud</span></div>
+          <div class="pv-bar-wrap">
+            <div class="pv-bar-label"><span>IMC</span><span>42,97%</span></div>
+            <div class="pv-bar"><div class="pv-bar-fill" style="width:100%;background:linear-gradient(90deg,#1D9E75,#378ADD)"></div></div>
+            <div class="pv-bar-label"><span>Peso</span><span>21,97%</span></div>
+            <div class="pv-bar"><div class="pv-bar-fill" style="width:51%;background:#378ADD"></div></div>
+            <div class="pv-bar-label"><span>Idade</span><span>6,33%</span></div>
+            <div class="pv-bar"><div class="pv-bar-fill" style="width:15%;background:#7C5CBF"></div></div>
+            <div class="pv-bar-label"><span>Gênero</span><span>5,34%</span></div>
+            <div class="pv-bar"><div class="pv-bar-fill" style="width:12%;background:#D97706"></div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Projeto 2 -->
+      <div class="proj-card fade-up fade-up-d1">
+        <div class="proj-top">
+          <div class="proj-icon">💬</div>
+          <span class="proj-badge live">● Live</span>
+        </div>
+        <div class="proj-title">ChurnGuard — Predição de Churn com NLP</div>
+        <div class="proj-desc">Modelo de predição de churn para telecom combinando dados transacionais com análise de sentimento de chamados de suporte via NLP. Integrado a dashboard em tempo real para ação imediata da equipe comercial.</div>
+        <div class="proj-stats">
+          <div class="ps-item"><span class="ps-val">91,2%</span><span class="ps-label">Acurácia</span></div>
+          <div class="ps-item"><span class="ps-val">-18%</span><span class="ps-label">Churn reduzido</span></div>
+        </div>
+        <div class="proj-stack">
+          <span class="pill blue">Python</span><span class="pill green">XGBoost</span>
+          <span class="pill purple">NLP</span><span class="pill amber">Power BI</span>
+          <span class="pill blue">AWS</span>
+        </div>
+        <div class="proj-links">
+          <a class="proj-link" href="https://github.com/claytondatascienceIA/portfolio/tree/main/churnguard">⌥ GitHub</a>
+          <a class="proj-link" href="#">↗ Case</a>
+        </div>
+      </div>
+
+      <!-- Projeto 3 -->
+      <div class="proj-card fade-up fade-up-d2">
+        <div class="proj-top">
+          <div class="proj-icon">🤖</div>
+          <span class="proj-badge live">● Live</span>
+        </div>
+        <div class="proj-title">DataAgent — Agente de IA para Análise Autônoma</div>
+        <div class="proj-desc">Agente autônomo com arquitetura ReAct capaz de receber perguntas de negócio em linguagem natural, escrever e executar queries SQL, gerar visualizações e resumir insights — sem intervenção humana.</div>
+        <div class="proj-stats">
+          <div class="ps-item"><span class="ps-val">-70%</span><span class="ps-label">Tempo de análise</span></div>
+          <div class="ps-item"><span class="ps-val">LLM</span><span class="ps-label">Powered</span></div>
+        </div>
+        <div class="proj-stack">
+          <span class="pill purple">Claude API</span><span class="pill blue">LangChain</span>
+          <span class="pill green">ReAct</span><span class="pill amber">SQL</span>
+          <span class="pill blue">Python</span>
+        </div>
+        <div class="proj-links">
+          <a class="proj-link" href="https://github.com/claytondatascienceIA/portfolio/tree/main/dataagent">⌥ GitHub</a>
+          <a class="proj-link" href="#">↗ Demo</a>
+        </div>
+      </div>
+
+      <!-- Projeto 4 -->
+      <div class="proj-card fade-up">
+        <div class="proj-top">
+          <div class="proj-icon">🔍</div>
+          <span class="proj-badge wip">◐ Em desenvolvimento</span>
+        </div>
+        <div class="proj-title">RAGDocs — Busca Semântica em Documentos</div>
+        <div class="proj-desc">Sistema RAG (Retrieval-Augmented Generation) para busca inteligente em bases de documentos corporativos. Combina embeddings com LLMs para respostas precisas com rastreabilidade da fonte.</div>
+        <div class="proj-stats">
+          <div class="ps-item"><span class="ps-val">RAG</span><span class="ps-label">Arquitetura</span></div>
+          <div class="ps-item"><span class="ps-val">+40%</span><span class="ps-label">Precisão vs. busca</span></div>
+        </div>
+        <div class="proj-stack">
+          <span class="pill purple">RAG</span><span class="pill blue">Embeddings</span>
+          <span class="pill green">LLM</span><span class="pill amber">Python</span>
+          <span class="pill blue">FAISS</span>
+        </div>
+        <div class="proj-links">
+          <a class="proj-link" href="https://github.com/claytondatascienceIA/portfolio/tree/main/ragdocs">⌥ GitHub</a>
+        </div>
+      </div>
+
+      <!-- Projeto 5 -->
+      <div class="proj-card fade-up fade-up-d1">
+        <div class="proj-top">
+          <div class="proj-icon">📈</div>
+          <span class="proj-badge live">● Live</span>
+        </div>
+        <div class="proj-title">SalesForecast — Previsão de Vendas com Série Temporal</div>
+        <div class="proj-desc">Modelo de previsão de vendas para rede de varejo com Prophet e LSTM. Pipeline automatizada que atualiza previsões diariamente e alimenta dashboard gerencial com alertas de desvio.</div>
+        <div class="proj-stats">
+          <div class="ps-item"><span class="ps-val">+20%</span><span class="ps-label">Acurácia vs. baseline</span></div>
+          <div class="ps-item"><span class="ps-val">LSTM</span><span class="ps-label">Arquitetura</span></div>
+        </div>
+        <div class="proj-stack">
+          <span class="pill blue">Python</span><span class="pill purple">Prophet</span>
+          <span class="pill green">LSTM</span><span class="pill amber">Power BI</span>
+          <span class="pill blue">AWS</span>
+        </div>
+        <div class="proj-links">
+          <a class="proj-link" href="https://github.com/claytondatascienceIA/portfolio/tree/main/salesforecast">⌥ GitHub</a>
+          <a class="proj-link" href="#">↗ Case</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="section-wrap">
+    <div class="sec-label fade-up">trajetória</div>
+    <h2 class="fade-up fade-up-d1">Experiência profissional</h2>
+    <p class="sec-desc fade-up fade-up-d2">15+ anos construindo soluções de dados que geram impacto mensurável nos negócios.</p>
+
+    <div class="timeline">
+      <div class="tl-item fade-up">
+        <div class="tl-period">Out 2025 – Atual</div>
+        <div class="tl-company">Claro Brasil</div>
+        <div class="tl-role">Cientista de Dados Sênior</div>
+        <ul class="tl-bullets">
+          <li>Desenvolvimento de modelos de ML (classificação, NLP, análise de padrões) para casos de uso reais de negócio</li>
+          <li>Construção de soluções com IA generativa — LLMs OpenAI, Llama e Gemini — com foco em prompt engineering e acurácia</li>
+          <li>Desenvolvimento de agentes de IA autônomos com arquiteturas ReAct, RAG e multi-agentes</li>
+          <li>Criação de pipelines de dados end-to-end com Python e seu ecossistema completo</li>
+        </ul>
+      </div>
+
+      <div class="tl-item fade-up fade-up-d1">
+        <div class="tl-period">Dez 2024 – Ago 2025</div>
+        <div class="tl-company">Oxxo Brasil</div>
+        <div class="tl-role">Analista de Dados Sênior – BI & Analytics</div>
+        <ul class="tl-bullets">
+          <li>Automação com Python + ML (regressão, árvores de decisão) — redução de 70% no tempo de entrega de análises</li>
+          <li>Dashboards no Oracle Analytics Cloud e Power BI para KPIs de performance comercial e churn</li>
+          <li>Implementação de governança de dados com Oracle Data Catalog</li>
+        </ul>
+      </div>
+
+      <div class="tl-item fade-up fade-up-d2">
+        <div class="tl-period">Nov 2023 – Dez 2024</div>
+        <div class="tl-company">Bluestorm Software</div>
+        <div class="tl-role">Analista de Dados Pleno – BI</div>
+        <ul class="tl-bullets">
+          <li>Liderança em Data Analytics na AWS (Redshift, Glue, Athena) com redução de 20% em custos de infra</li>
+          <li>Otimização de queries Oracle — redução de 40% no tempo de processamento</li>
+          <li>+15 dashboards estratégicos em Power BI, Looker Studio e Metabase</li>
+        </ul>
+      </div>
+
+      <div class="tl-item fade-up">
+        <div class="tl-period">Dez 2020 – Fev 2023</div>
+        <div class="tl-company">InfinitySys</div>
+        <div class="tl-role">Analista de BI Pleno – Oracle Analytics Cloud</div>
+        <ul class="tl-bullets">
+          <li>Implantação e desenvolvimento de +20 dashboards no Oracle Analytics Cloud</li>
+          <li>Aumento de 25% na performance de consultas via modelagem otimizada</li>
+          <li>100% de aderência às regras de negócio com redução de relatórios manuais</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EDUCATION -->
+<section id="education">
+  <div class="section-wrap">
+    <div class="sec-label fade-up">formação</div>
+    <h2 class="fade-up fade-up-d1">Educação & Certificações</h2>
+    <p class="sec-desc fade-up fade-up-d2">Formação contínua e atualizada nas principais frentes de Data Science e IA.</p>
+
+    <div class="edu-grid fade-up">
+      <div class="edu-card">
+        <div class="edu-period">Jun 2025 – Jun 2026 · Em curso</div>
+        <div class="edu-title">Pós-Graduação em Data Analytics</div>
+        <div class="edu-inst">FIAP — POSTECH</div>
+      </div>
+      <div class="edu-card">
+        <div class="edu-period">Ago 2024 – Ago 2025</div>
+        <div class="edu-title">Pós-Graduação em Inteligência Artificial</div>
+        <div class="edu-inst">Universidade Anhembi Morumbi</div>
+      </div>
+      <div class="edu-card">
+        <div class="edu-period">Out 2022 – Jun 2024</div>
+        <div class="edu-title">Pós-Graduação em Business Intelligence & Analytics</div>
+        <div class="edu-inst">Universidade Anhembi Morumbi</div>
+      </div>
+      <div class="edu-card">
+        <div class="edu-period">Fev 2015 – Jun 2017</div>
+        <div class="edu-title">Superior em Análise e Desenvolvimento de Sistemas</div>
+        <div class="edu-inst">Universidade Cidade de São Paulo</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-wrap">
+    <div class="contact-inner">
+      <div>
+        <div class="sec-label fade-up">contato</div>
+        <h2 class="fade-up fade-up-d1">Vamos trabalhar juntos?</h2>
+        <p class="sec-desc fade-up fade-up-d2" style="margin-bottom:0">Aberto a projetos de Data Science, consultoria em IA e oportunidades desafiadoras.</p>
+
+        <div class="contact-links fade-up fade-up-d2">
+          <a class="contact-link" href="mailto:clayton.santosti@gmail.com">
+            <div class="cl-icon blue">✉️</div>
+            <div>
+              <div class="cl-label">E-mail</div>
+              <div class="cl-val">clayton.santosti@gmail.com</div>
+            </div>
+          </a>
+          <a class="contact-link" href="https://linkedin.com/in/clayton-diassantos-527375b9" target="_blank">
+            <div class="cl-icon purple">💼</div>
+            <div>
+              <div class="cl-label">LinkedIn</div>
+              <div class="cl-val">linkedin.com/in/clayton-diassantos</div>
+            </div>
+          </a>
+          <a class="contact-link" href="tel:+5511991519941">
+            <div class="cl-icon green">📱</div>
+            <div>
+              <div class="cl-label">Telefone / WhatsApp</div>
+              <div class="cl-val">(11) 99151-9941</div>
+            </div>
+          </a>
+          <a class="contact-link" href="https://github.com/claytondatascienceIA/portfolio" target="_blank">
+            <div class="cl-icon blue">⌥</div>
+            <div>
+              <div class="cl-label">GitHub</div>
+              <div class="cl-val">github.com/claytondatascienceIA</div>
+            </div>
+          </a>
+        </div>
+      </div>
+
+      <div class="contact-quote fade-up fade-up-d2">
+        <div class="cq-text">
+          Transformar dados em decisões inteligentes não é só técnica — 
+          é entender o problema de negócio, encontrar o dado certo e 
+          construir algo que realmente funcione no mundo real.
+        </div>
+        <div class="cq-sig">— Clayton Dias Santos · Jundiaí, SP</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>© 2025 Clayton Dias Santos · Cientista de Dados Sênior · Jundiaí – SP</p>
+  <p style="margin-top:6px;font-size:10px;opacity:0.5;">Feito com HTML · CSS · JS · hospedado no GitHub Pages</p>
+</footer>
+
+<script>
+// Cursor glow
+const glow = document.getElementById('glow');
+document.addEventListener('mousemove', e => {
+  glow.style.left = e.clientX + 'px';
+  glow.style.top  = e.clientY + 'px';
+});
+
+// Intersection Observer para animações
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.1 });
+
+document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+// Marcar itens do hero como visíveis imediatamente
+setTimeout(() => {
+  document.querySelectorAll('#hero .fade-up').forEach(el => el.classList.add('visible'));
+}, 100);
+
+// Nav scroll effect
+window.addEventListener('scroll', () => {
+  document.querySelector('nav').style.boxShadow =
+    window.scrollY > 20 ? '0 4px 40px rgba(0,0,0,0.4)' : 'none';
+});
+</script>
+</body>
+</html>
