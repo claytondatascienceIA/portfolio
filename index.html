@@ -499,9 +499,7 @@ h2 {
   border-radius: 20px;
   padding: 2rem;
   transition: all 0.3s;
-  cursor: pointer;
   position: relative;
-  overflow: hidden;
   text-decoration: none;
   display: block;
   color: inherit;
@@ -600,6 +598,8 @@ h2 {
 .proj-links {
   display: flex;
   gap: 10px;
+  position: relative;
+  z-index: 10;
 }
 
 .proj-link {
@@ -614,6 +614,9 @@ h2 {
   display: inline-flex;
   align-items: center;
   gap: 6px;
+  position: relative;
+  z-index: 10;
+  cursor: pointer;
 }
 
 .proj-link:hover { background: rgba(55,138,221,0.1); }
