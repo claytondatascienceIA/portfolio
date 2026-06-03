@@ -911,6 +911,32 @@ footer {
 ::-webkit-scrollbar-track { background: var(--bg); }
 ::-webkit-scrollbar-thumb { background: var(--blue-dim); border-radius: 3px; }
 ::-webkit-scrollbar-thumb:hover { background: var(--blue); }
+
+/* Título do projeto clicável com hover */
+.proj-title-link {
+  text-decoration: none;
+  color: inherit;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: color 0.2s;
+  position: relative;
+  z-index: 10;
+}
+.proj-title-link:hover {
+  color: var(--blue);
+}
+.proj-title-link .proj-title-arrow {
+  font-size: 14px;
+  opacity: 0;
+  transform: translateX(-6px);
+  transition: all 0.25s ease;
+  color: var(--blue);
+}
+.proj-title-link:hover .proj-title-arrow {
+  opacity: 1;
+  transform: translateX(0);
+}
 </style>
 </head>
 <body>
@@ -1085,7 +1111,7 @@ footer {
             <div class="proj-icon">🩺</div>
             <span class="proj-badge live">● Live</span>
           </div>
-          <div class="proj-title">ObesityPredict — Sistema Preditivo de Obesidade</div>
+          <div class="proj-title"><a class="proj-title-link" href="https://obesitypredict-fgc2w7oeteyxzgoeejjjwq.streamlit.app/" target="_blank">ObesityPredict — Sistema Preditivo de Obesidade <span class="proj-title-arrow">↗</span></a></div>
           <div class="proj-desc">
             Pipeline completa de Machine Learning para classificação de nível de obesidade em 7 categorias. 
             Inclui feature engineering avançado, treinamento de Random Forest e deploy de 
@@ -1106,7 +1132,7 @@ footer {
             <span class="pill green">Matplotlib</span>
           </div>
           <div class="proj-links">
-            <a class="proj-link" href="https://github.com/claytondatascienceIA/portfolio/tree/main/obesitypredict" target="_blank">⌥ GitHub</a>
+            <a class="proj-link" href="https://github.com/claytondatascienceIA/obesitypredict" target="_blank">⌥ GitHub</a>
             <a class="proj-link" href="https://obesitypredict-fgc2w7oeteyxzgoeejjjwq.streamlit.app/" target="_blank">↗ App ao vivo</a>
           </div>
         </div>
@@ -1135,7 +1161,7 @@ footer {
           <div class="proj-icon">💬</div>
           <span class="proj-badge live">● Live</span>
         </div>
-        <div class="proj-title">ChurnGuard — Predição de Churn com NLP</div>
+        <div class="proj-title"><a class="proj-title-link" href="https://churnguard-jzzwiweypyerhlshknrfzi.streamlit.app/" target="_blank">ChurnGuard — Predição de Churn com NLP <span class="proj-title-arrow">↗</span></a></div>
         <div class="proj-desc">Modelo de predição de churn para telecom combinando dados transacionais com análise de sentimento de chamados de suporte via NLP. Integrado a dashboard em tempo real para ação imediata da equipe comercial.</div>
         <div class="proj-stats">
           <div class="ps-item"><span class="ps-val">91,2%</span><span class="ps-label">Acurácia</span></div>
@@ -1147,7 +1173,7 @@ footer {
           <span class="pill blue">AWS</span>
         </div>
         <div class="proj-links">
-          <a class="proj-link" href="https://github.com/claytondatascienceIA/portfolio/tree/main/churnguard" target="_blank">⌥ GitHub</a>
+          <a class="proj-link" href="https://github.com/claytondatascienceIA/churnguard" target="_blank">⌥ GitHub</a>
           <a class="proj-link" href="https://churnguard-jzzwiweypyerhlshknrfzi.streamlit.app/" target="_blank">↗ App ao vivo</a>
         </div>
       </div>
@@ -1158,7 +1184,7 @@ footer {
           <div class="proj-icon">🤖</div>
           <span class="proj-badge live">● Live</span>
         </div>
-        <div class="proj-title">DataAgent — Agente de IA para Análise Autônoma</div>
+        <div class="proj-title"><a class="proj-title-link" href="https://dataagent-uq3isxkc35pf7jj4benrpk.streamlit.app/" target="_blank">DataAgent — Agente de IA para Análise Autônoma <span class="proj-title-arrow">↗</span></a></div>
         <div class="proj-desc">Agente autônomo com arquitetura ReAct capaz de receber perguntas de negócio em linguagem natural, escrever e executar queries SQL, gerar visualizações e resumir insights — sem intervenção humana.</div>
         <div class="proj-stats">
           <div class="ps-item"><span class="ps-val">-70%</span><span class="ps-label">Tempo de análise</span></div>
@@ -1170,7 +1196,7 @@ footer {
           <span class="pill blue">Python</span>
         </div>
         <div class="proj-links">
-          <a class="proj-link" href="https://github.com/claytondatascienceIA/portfolio/tree/main/dataagent" target="_blank">⌥ GitHub</a>
+          <a class="proj-link" href="https://github.com/claytondatascienceIA/dataagent" target="_blank">⌥ GitHub</a>
           <a class="proj-link" href="https://dataagent-uq3isxkc35pf7jj4benrpk.streamlit.app/" target="_blank">↗ App ao vivo</a>
         </div>
       </div>
@@ -1181,7 +1207,7 @@ footer {
           <div class="proj-icon">🔍</div>
           <span class="proj-badge wip">◐ Em desenvolvimento</span>
         </div>
-        <div class="proj-title">RAGDocs — Busca Semântica em Documentos</div>
+        <div class="proj-title"><a class="proj-title-link" href="https://ragdocs-dc8tcrqo2scsgqp9bthvuy.streamlit.app/" target="_blank">RAGDocs — Busca Semântica em Documentos <span class="proj-title-arrow">↗</span></a></div>
         <div class="proj-desc">Sistema RAG (Retrieval-Augmented Generation) para busca inteligente em bases de documentos corporativos. Combina embeddings com LLMs para respostas precisas com rastreabilidade da fonte.</div>
         <div class="proj-stats">
           <div class="ps-item"><span class="ps-val">RAG</span><span class="ps-label">Arquitetura</span></div>
@@ -1193,7 +1219,7 @@ footer {
           <span class="pill blue">FAISS</span>
         </div>
         <div class="proj-links">
-          <a class="proj-link" href="https://github.com/claytondatascienceIA/portfolio/tree/main/ragdocs" target="_blank">⌥ GitHub</a>
+          <a class="proj-link" href="https://github.com/claytondatascienceIA/ragdocs" target="_blank">⌥ GitHub</a>
           <a class="proj-link" href="https://ragdocs-dc8tcrqo2scsgqp9bthvuy.streamlit.app/" target="_blank">↗ App ao vivo</a>
         </div>
       </div>
@@ -1204,7 +1230,7 @@ footer {
           <div class="proj-icon">📈</div>
           <span class="proj-badge live">● Live</span>
         </div>
-        <div class="proj-title">SalesForecast — Previsão de Vendas com Série Temporal</div>
+        <div class="proj-title"><a class="proj-title-link" href="https://salesforecast-jj2t8d9rywtjzkhmmvxymz.streamlit.app/" target="_blank">SalesForecast — Previsão de Vendas com Série Temporal <span class="proj-title-arrow">↗</span></a></div>
         <div class="proj-desc">Modelo de previsão de vendas para rede de varejo com Prophet e LSTM. Pipeline automatizada que atualiza previsões diariamente e alimenta dashboard gerencial com alertas de desvio.</div>
         <div class="proj-stats">
           <div class="ps-item"><span class="ps-val">+20%</span><span class="ps-label">Acurácia vs. baseline</span></div>
@@ -1216,7 +1242,7 @@ footer {
           <span class="pill blue">AWS</span>
         </div>
         <div class="proj-links">
-          <a class="proj-link" href="https://github.com/claytondatascienceIA/portfolio/tree/main/salesforecast" target="_blank">⌥ GitHub</a>
+          <a class="proj-link" href="https://github.com/claytondatascienceIA/salesforecast" target="_blank">⌥ GitHub</a>
           <a class="proj-link" href="https://salesforecast-jj2t8d9rywtjzkhmmvxymz.streamlit.app/" target="_blank">↗ App ao vivo</a>
         </div>
       </div>
@@ -1344,7 +1370,7 @@ footer {
               <div class="cl-val">(11) 99151-9941</div>
             </div>
           </a>
-          <a class="contact-link" href="https://github.com/claytondatascienceIA/portfolio" target="_blank">
+          <a class="contact-link" href="https://github.com/claytondatascienceIA" target="_blank">
             <div class="cl-icon blue">⌥</div>
             <div>
               <div class="cl-label">GitHub</div>
